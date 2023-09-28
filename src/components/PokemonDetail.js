@@ -10,13 +10,11 @@ function PokemonDetail(props) {
   const { match } = props;
   const pokemonName = match.params.id;
   const [pokemon, setPokemon] = useState(null);
+  console.log(pokemonName);
+  const { loading, data, error } = useFetch(`/pokemon/${pokemonName}`);
 
   // Primero, cambie el método componentDidMount por useEffect para hacer la llamada al API usando componentes funcionales.
   // Después, hice mi propio hook para hacer la llamada al API
-  const { loading, data, error } = useFetch(
-    `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
-  );
-
   useEffect(() => {
     if (!loading && data) {
       setPokemon(data);
@@ -24,18 +22,15 @@ function PokemonDetail(props) {
   }, [loading, data]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>Cargando...</div>;
   }
 
   if (error) {
-    return <div>The following error occurred: {error}</div>;
+    return <div>Ocurrió el siguiente error: {error}</div>;
   }
 
-  // Esta condicion es necesaria para evitar errores cuando el pokemon no ha sido cargado
-  // Si no se tiene esta condición, el componente intentara renderizar el pokemon cuando es igual a null
-  // y esto causara un error
   if (!pokemon) {
-    return <div>Pokemon data is not available yet.</div>;
+    return <div>Los datos del Pokémon aún no están disponibles.</div>;
   }
 
   return (
@@ -45,6 +40,7 @@ function PokemonDetail(props) {
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
+        margin: 0,
       }}
     >
       <Card
