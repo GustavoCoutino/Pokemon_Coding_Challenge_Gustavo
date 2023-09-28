@@ -20,7 +20,8 @@ Welcome to PokéApp, a simple yet effective React application that helps users v
 3. **`Posibles mejoras`**:
 
    - Uso de tecnicas de cache
-   - Displays various attributes like name, abilities, types, and more.
+   - Paginación para manejar multiples pokemones en diferentes pantallas
+   - Estilos en la tarjeta de cada pokemon
 
 4. **`Repositorios relacionados`**:
    - Sitio en Github Pages: https://gustavocoutino.github.io/Pokemon_Coding_Challenge_Gustavo/#/
