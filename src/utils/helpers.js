@@ -26,9 +26,6 @@ export function sortData(data, sort) {
 export function filterData(data, filter) {
   const lowerCaseFilter = filter.toLowerCase();
   return data.filter((poke) => {
-    return (
-      poke.name.toLowerCase().includes(lowerCaseFilter) ||
-      poke.name.toLowerCase().includes(lowerCaseFilter)
-    );
+    return poke.name.toLowerCase().includes(lowerCaseFilter);
   });
 }

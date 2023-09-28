@@ -3,7 +3,7 @@ import { sortData, filterData } from "../utils/helpers";
 import Filter from "./Filter";
 import { List, Card } from "antd";
 import { Link } from "react-router-dom";
-import { fetchData } from "../utils/api";
+import useFetch from "../utils/useFetch";
 
 // Realice el cambio de una arquitectura de clase a una arquitectura de componentes
 // funcionales mediante el uso de hooks como useState, useEffect, useCallback y useMemo.
@@ -14,15 +14,17 @@ function PokemonList(props) {
   const [filter, setFilter] = useState("");
   const [sort, setSort] = useState("name");
 
-  // Utilice useEffect en vez de componentDidMount para hacer el fetch de los pokemones
-  // Tengo que crear un custom hook para hacer el fetch de los pokemones
+  // Primero, cambie el método componentDidMount por useEffect para hacer la llamada al API usando componentes funcionales.
+  // Después, hice mi propio hook para hacer la llamada al API
+  const [url] = useState("https://pokeapi.co/api/v2/pokemon");
+  const res = useFetch(url);
+  const { loading, data, error } = res;
+
   useEffect(() => {
-    fetchData("/pokemon")
-      .then((data) => {
-        setPokemon(data.results);
-      })
-      .catch((error) => console.error(error));
-  }, []);
+    if (!loading && data) {
+      setPokemon(data.results);
+    }
+  }, [loading, data]);
 
   // Cambie el método handleFilterChange para que utilice el hook useCallback
   // para evitar hacer renders innecesarios
@@ -49,6 +51,14 @@ function PokemonList(props) {
     () => sortData(filteredPokemon, sort),
     [filteredPokemon, sort]
   );
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>The following error ocurred: {error}</div>;
+  }
 
   return (
     <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "20px" }}>
