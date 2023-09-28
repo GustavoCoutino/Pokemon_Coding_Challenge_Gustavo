@@ -9,8 +9,10 @@ import useFetch from "../utils/useFetch";
 function PokemonDetail(props) {
   const { match } = props;
   const pokemonName = match.params.id;
+  // Capitalizar el nombre para mejorar el UI
+  const capitalizedName =
+    pokemonName.charAt(0).toUpperCase() + match.params.id.slice(1);
   const [pokemon, setPokemon] = useState(null);
-  console.log(pokemonName);
   const { loading, data, error } = useFetch(`/pokemon/${pokemonName}`);
 
   // Primero, cambie el método componentDidMount por useEffect para hacer la llamada al API usando componentes funcionales.
@@ -44,11 +46,33 @@ function PokemonDetail(props) {
       }}
     >
       <Card
-        style={{ width: 300 }}
-        cover={<img alt={pokemon.name} src={pokemon.sprites?.front_default} />}
+        style={{
+          width: "300px",
+          backgroundColor: "#f5f5f5",
+          border: "2px solid #333",
+          borderRadius: "15px",
+          padding: "10px",
+          textAlign: "center",
+          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
+        }}
       >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <img
+            style={{
+              maxWidth: "100%",
+              maxHeight: "200px",
+            }}
+            alt={pokemon.name}
+            src={pokemon.sprites?.front_default}
+          />
+        </div>
         <Card.Meta
-          title={pokemon.name}
+          title={capitalizedName}
           description={
             <>
               <p>Height: {pokemon.height}</p>
