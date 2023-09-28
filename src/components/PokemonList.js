@@ -16,13 +16,38 @@ function PokemonList(props) {
 
   // Primero, cambie el método componentDidMount por useEffect para hacer la llamada al API usando componentes funcionales.
   // Después, hice mi propio hook para hacer la llamada al API
+  // El custom hook obtiene el url para desplegar la imagen de cada pokemon
   const [url] = useState("https://pokeapi.co/api/v2/pokemon");
   const res = useFetch(url);
   const { loading, data, error } = res;
-
   useEffect(() => {
+    // Las llamadas al API no empiezan hasta que useFetch regresa informacion del pokemon (su url y nombre)
     if (!loading && data) {
-      setPokemon(data.results);
+      // Modifique la logica del hook para obtener la imagen de cada pokemon (y toda su informacion que puede ser usada en los filtros)
+      const fetchPokemonDetails = async () => {
+        // Hacemos multiples solicitudes
+        const pokemonDetails = await Promise.all(
+          data.results.map(async (poke) => {
+            // Esta solicitud es la que regresa el objeto con la informacion entera del pokemon
+            const response = await fetch(poke.url);
+            if (!response.ok) {
+              console.error(`Error al obtener datos de ${poke.name}`);
+              return null;
+            }
+            // Convertimos la respuesta de json a un objeto de javascript
+            const pokemonData = await response.json();
+            return {
+              name: pokemonData.name,
+              type: pokemonData.types.map((type) => type.type.name),
+              moves: pokemonData.moves.map((move) => move.move.name),
+            };
+          })
+        );
+        // Unicamente actualizamos el estado si poke tiene una respuesta diferente a null
+        setPokemon(pokemonDetails.filter((poke) => poke !== null));
+      };
+
+      fetchPokemonDetails();
     }
   }, [loading, data]);
 
@@ -75,6 +100,7 @@ function PokemonList(props) {
             {/* La ruta para ver cada pokemon era incorrecto, la corregi usando el atributo de name del objeto poke */}
             {/* que es regresado despues de hacer la llamada al API */}
             <Link to={`/pokemon/${poke.name}`}>
+              {/* Si por alguna razón en la respuesta del hook no se encontro la imagen, se pone la imagen de una pokebola como default */}
               <Card
                 hoverable
                 style={{ borderRadius: "10px", transition: "all 0.3s ease" }}
