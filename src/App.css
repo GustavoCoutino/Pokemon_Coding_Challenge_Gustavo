@@ -38,9 +38,10 @@
 }
 
 .custom-header-menu .ant-menu-item-selected {
-  background-color: #00aaff !important; /* Header's background color */
+  background-color: #ee4b2b !important;
+  margin-left: 10px;
 }
 
 .custom-header-menu .ant-menu-item-selected a {
-  color: #fff !important; /* Text color */
+  color: #ffff !important; /* Text color */
 }
