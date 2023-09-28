@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Pokemon_Coding_Challenge_Gustavo/static/css/main.87fc9db8.css",
+    "main.css": "/Pokemon_Coding_Challenge_Gustavo/static/css/main.5cab6e77.css",
     "main.js": "/Pokemon_Coding_Challenge_Gustavo/static/js/main.330d3100.js",
     "static/js/787.3e4b36fc.chunk.js": "/Pokemon_Coding_Challenge_Gustavo/static/js/787.3e4b36fc.chunk.js",
     "index.html": "/Pokemon_Coding_Challenge_Gustavo/index.html",
-    "main.87fc9db8.css.map": "/Pokemon_Coding_Challenge_Gustavo/static/css/main.87fc9db8.css.map",
+    "main.5cab6e77.css.map": "/Pokemon_Coding_Challenge_Gustavo/static/css/main.5cab6e77.css.map",
     "main.330d3100.js.map": "/Pokemon_Coding_Challenge_Gustavo/static/js/main.330d3100.js.map",
     "787.3e4b36fc.chunk.js.map": "/Pokemon_Coding_Challenge_Gustavo/static/js/787.3e4b36fc.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.87fc9db8.css",
+    "static/css/main.5cab6e77.css",
     "static/js/main.330d3100.js"
   ]
 }
