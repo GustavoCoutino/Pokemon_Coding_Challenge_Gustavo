@@ -17,14 +17,14 @@ const useFetch = (url) => {
       const resp = await fetch(url);
       // Esta condicion es para lidiar con casos donde haya una falla de API por un mal request
       if (!resp.ok) {
-        console.error(`Request Error! Status: ${resp.status}`);
+        console.error(`Error en la solicitud! Estado: ${resp.status}`);
       }
       const data = await resp.json();
       setResult({ loading: false, data });
     } catch (e) {
-      // Este catch sirve para errores inesperados durante la llamada de la API
+      // Este catch sirve para errores inesperados durante la llamada a la API
       setResult({ loading: false, data: null, error: e.message });
-      console.error("API error:", e);
+      console.error("Error en la API:", e);
     }
   }
 
